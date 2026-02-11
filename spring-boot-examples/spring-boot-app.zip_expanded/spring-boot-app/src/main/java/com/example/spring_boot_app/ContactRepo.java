@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ContactRepo extends JpaRepository<Contact, Integer>{
 
-	// we don't have built-in method to find all the rows based on the foeign key
+	// we don't have built-in method to find all the rows based on the foreign key
 	@Query("select c from Contact c where c.userIdRef = ?1")
 	public List<Contact> getContacts(int profileId);
 }

@@ -1,6 +1,7 @@
 package com.example.spring_boot_app;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,11 @@ public class ProfileServiceImpl {
 	// return all the profiles
 	public List<Profile> findProfiles() {
 		return profileRepo.findAll();
+	}
+	
+	// login method - post {"id":12345, "password":"admin""}
+	public Profile authenticate(Profile profile) {
+		Optional<Profile> option = profileRepo.findByIdAndPassword(profile.getId(), profile.getPassword());
+		return option.orElseThrow(() -> new ProfileNotFoundException("Id or Password is incorrect"));
 	}
 }

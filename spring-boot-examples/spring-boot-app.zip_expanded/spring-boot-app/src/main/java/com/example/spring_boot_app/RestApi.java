@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,16 +23,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class RestApi {
 
-	
 	@Autowired
 	private ProfileServiceImpl profileService;
 	@Autowired
 	private ContactServiceImpl contactService;
 	
-	// add contact to the profile
+	// login 
+	@PostMapping(path = "/profile/login", consumes =MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> login(@RequestBody Profile profile) {
+		try {
+			Profile loggedInProfile = profileService.authenticate(profile);
+			return ResponseEntity.ok(loggedInProfile); // 200 with body
+		} catch(ProfileNotFoundException e) {
+			// Map.of(K, V, K, V, K, V) -> similar to using put(k, v)
+			Map<String, String> map = Map.of("message", e.getMessage(), "status", "404");
+			return ResponseEntity.status(404).body(map);
+		}
+	}
 	
+	// add contact to the profile
 	@PostMapping(path = "/profile/{profileId}/contact", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> storeContact(@RequestBody Contact contact, @PathVariable("profileId") int id) {
 		// adding the foreign key to the contact entity
@@ -45,8 +58,7 @@ public class RestApi {
 	public ResponseEntity<Object> fetchContacts(@PathVariable int  profileId) {
 		List<Contact> contacts = contactService.getAllContacts(profileId);
 		return ResponseEntity.status(200).body(contacts);
-	}
-	
+	}	
 	@PostMapping(path = "/profile", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> storeProfile(@RequestBody Profile profile) {
 		Profile created = profileService.createProfile(profile);

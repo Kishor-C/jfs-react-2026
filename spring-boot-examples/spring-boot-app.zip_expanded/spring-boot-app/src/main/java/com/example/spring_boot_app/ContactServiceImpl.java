@@ -34,7 +34,7 @@ public class ContactServiceImpl {
 		}
 	}
 	public List<Contact> getAllContacts(int profileId) {
-		// profileid is not a primary key - it is a foeign key
+		// profileid is not a primary key - it is a foreign key
 		return contactRepo.getContacts(profileId);
 	}
 }
