@@ -69,4 +69,9 @@ public class RestApi {
 		List<Profile> list = profileService.findProfiles();
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
+	@GetMapping(path = "/profile/{id}")
+	public ResponseEntity<Object> fetchProfile(@PathVariable("id") int profileId) {
+		Profile profile = profileService.findProfile(profileId);
+		return ResponseEntity.status(HttpStatus.OK).body(profile);
+	}
 }

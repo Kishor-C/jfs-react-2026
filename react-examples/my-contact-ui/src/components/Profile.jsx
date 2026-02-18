@@ -1,12 +1,28 @@
 import { useState } from "react";
+import axios from 'axios';
 
-export function Profile(props) {  
-    let id = props.details.id;
-    let name = props.details.name;
-    let dob = props.details.dob;
+export function Profile(props) {
+    let id = props.id;  
+    let url = `http://localhost:8080/api/v1/profile/${id}`;
+    let[profile, setProfile] = useState(undefined);
+    axios.get(url).then(res => setProfile(res.data)).catch(err => console.log(err));
+
     return (<div>
-        <h2>Hello {name}, id is {id} and your dob is {dob}</h2>
+  
+        <div className = "row">
+            <div className="col">
+                <h3>Profile Information</h3> <hr />
+                <b>Name: </b> {profile.name} <br />
+                <b>Birthday: </b>{profile.dob} <br />
+                <b>Mobile No: </b>{profile.phone}
+            </div>
+            <div className="col">
+                <h3>Hello {profile.name}</h3>
+                <h4>Total contacts: {profile.contactList.length}</h4>
+            </div>
+        </div>
     </div>)
+
 }
 export function UserForm() {
     //useState(initialValue)

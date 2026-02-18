@@ -35,4 +35,10 @@ public class ProfileServiceImpl {
 		Optional<Profile> option = profileRepo.findByIdAndPassword(profile.getId(), profile.getPassword());
 		return option.orElseThrow(() -> new ProfileNotFoundException("Id or Password is incorrect"));
 	}
+	
+	// fetch the profile based on id
+	public Profile findProfile(int profileId) {
+		Optional<Profile> option = profileRepo.findById(profileId);
+		return option.orElse(null);
+	}
 }
