@@ -888,3 +888,4 @@
 2026-02-18 07:09:48,694 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2026-02-18 07:09:48,698 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2026-02-18 07:09:48,703 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Training Stuffs\Personal Training\Jan-2026-JavaFullStack-React\spring-boot-examples\spring-boot-app.zip_expanded\spring-boot-app\src\test\resources
+2026-02-20 06:31:33,698 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
